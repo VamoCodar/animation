@@ -1,0 +1,4 @@
+//phone wrapper que segura e recebe a animação de redimensinamento
+
+// apos sumir o texto é criado a div phone frame em baixo
+que tem position absolute ao container e tamanho e altura 100%
