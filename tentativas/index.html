@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animação</title>
+
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.3/ScrollMagic.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/animation.gsap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.min.js"></script>
+
+    <div class="space"></div>
+    <div id="trigger1"> </div> <!-- para celular -->
+    <div id="trigger2"> </div> <!-- para dar height -->
+
+
+    <div class="wrapper">
+        <div class="container">
+            <div class="celular"></div>
+            <video id="video" src="bg.mp4" autoplay loop="true"></video>
+
+        </div>
+    </div>
+
+
+
+
+
+    <script>
+        //controle
+        var video = document.querySelector("#video")
+        var celular = document.querySelector(".celular")
+        var videoHeight = document.querySelector("#video").getBoundingClientRect().height
+        //controlador 
+        var controller = new ScrollMagic.Controller();
+
+
+        // build scene
+        const tl = new TimelineMax(); //linha do tempo 1
+        const tl2 = new TimelineMax(); //linha do tempo 2
+
+        tl
+            //resize do container
+            .to(".container", 4, {
+                left: "200px",
+                width: "252px",
+                height: "515px",
+                top: 0,
+                bottom: 0,
+            }, "first")
+            //resize do video
+            .to("#video", 3, {
+                y: 0,
+            }, "first")
+            //resize do celular height 100%
+            .to(".celular", 3, {
+                height: "100%",
+                left: 0,
+            }, "first")
+
+
+
+
+        //CENA 1 
+        var scene1 = new ScrollMagic.Scene({
+                triggerElement: "#trigger1",
+                duration: 600,
+                offset: 400,
+            })
+            .setTween(tl)
+            .addIndicators({
+                name: "RESIZE GERAL"
+            })
+        //* /CENA 2
+        /* var scene2 = new ScrollMagic.Scene({
+                triggerElement: "#trigger2",
+                duration: 100,
+                offset: 700,
+            })
+            .setTween(tl2)
+            .addIndicators({
+                name: "CELULAR HEIGHT"
+            })
+
+
+        //TIMELINE 2
+        tl2.to(".container", 1, {
+            height: videoHeight,
+
+        }, ) */
+
+
+
+
+        //add to controller
+        controller.addScene([
+            scene1,
+            //scene2
+
+
+
+        ]);
+
+
+
+
+
+        window.addEventListener('scroll', () => {
+            const html = document.documentElement;
+            const scrollTop = html.scrollTop;
+            //elementos
+            const celular = document.querySelector(".celular")
+            const videoElement = document.querySelector("#video")
+            const container = document.querySelector(".container")
+
+
+            if (scrollTop >= 100) {
+                videoElement.classList.add("active")
+                celular.classList.add("active")
+                videoElement.classList.remove("disable")
+
+            } else if (scrollTop == 0) {
+                celular.classList.remove("active")
+                videoElement.classList.remove("active")
+                videoElement.classList.add("disable")
+            }
+            console.log(scrollTop);
+            console.log(scrollTop == 0);
+
+        });
+    </script>
+
+</body>
+
+</html>

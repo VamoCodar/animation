@@ -89,6 +89,8 @@ body {
     background-image: url(./download.png);
     z-index: 99;
     position: absolute;
+    right: 0;
+
 }
 
 #video.active {
